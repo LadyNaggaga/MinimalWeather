@@ -1,12 +1,12 @@
-name: Build and deploy .NET Core app to Linux WebApp MinimalWeathertest
+name: Build and deploy .NET Core app to Linux WebApp MinimalWeather
 on:
   push:
     branches:
-    - master
+    - main
 env:
-  AZURE_WEBAPP_NAME: MinimalWeathertest
+  AZURE_WEBAPP_NAME: MinimalWeather
   AZURE_WEBAPP_PACKAGE_PATH: dotnet/MinimalWeather/publish
-  AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.MinimalWeathertest_76dd }}
+  AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.MinimalWeather_e02a }}
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 6.0.x
   WORKING_DIRECTORY: dotnet/MinimalWeather
@@ -16,18 +16,17 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1.8.0
+      uses: actions/setup-dotnet@v1
       with:
         dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
-        include-prerelease: true
     - name: Restore
-      run: dotnet restore "${{ env.WORKING_DIRECTORY }}" -r linux-x64
+      run: dotnet restore "${{ env.WORKING_DIRECTORY }}"
     - name: Build
-      run: dotnet build "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-restore -r linux-x64
+      run: dotnet build "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-restore
     - name: Test
       run: dotnet test "${{ env.WORKING_DIRECTORY }}" --no-build
     - name: Publish
-      run: dotnet publish "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-build --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}" -r linux-x64
+      run: dotnet publish "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-build --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
     - name: Deploy to Azure WebApp
       uses: azure/webapps-deploy@v2
       with:
