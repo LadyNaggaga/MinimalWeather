@@ -24,7 +24,7 @@ app.MapGet("/weather/{location}", [EnableCors("weather")] async (Coordinate loca
         CurrentWeather = currentQuery.Result.Results[0],
         HourlyForecasts = hourlyQuery.Result.Forecasts,
         DailyForecasts = dailyQuery.Result.Forecasts,
-        DebugProperty = "Hello",
+        
     };
 });
 
