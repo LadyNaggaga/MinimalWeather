@@ -1,10 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
 		<LangVersion>Preview</LangVersion>
+		<NoWarn>CS0105</NoWarn>
+		<RestoreSources>
+			$(RestoreSources);
+			https://api.nuget.org/v3/index.json;
+			https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-tools/nuget/v3/index.json;
+			https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet6/nuget/v3/index.json
+		</RestoreSources>
 		<UserSecretsId>2bd37d96-2487-4c58-a5f3-ddd2524920ea</UserSecretsId>
-		<CscToolPath>C:\dev\rosyln\roslyn\artifacts\bin\csc\Release\net472</CscToolPath>
 	</PropertyGroup>
-
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Net.Compilers.Toolset" Version="4.0.0-2.21256.2" />
+	</ItemGroup>
 </Project>
